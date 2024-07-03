@@ -1,20 +1,3 @@
-42. E-learning Platform:
-
- Base class: Course
-
- Derived classes: ProgrammingCourse, LanguageCourse, MusicCourse
-
- Use case: Developing an e-learning platform where users can enroll in different
-
-types of courses. Each type of course inherits common properties like instructor and
-
-duration from the Course class, while specific course categories may have additional
-
-features like coding exercises for programming courses or language exercises for
-
-language courses.
-
-source code :
 
 #include <iostream>
 
