@@ -1,0 +1,326 @@
+42. E-learning Platform:
+
+ Base class: Course
+
+ Derived classes: ProgrammingCourse, LanguageCourse, MusicCourse
+
+ Use case: Developing an e-learning platform where users can enroll in different
+
+types of courses. Each type of course inherits common properties like instructor and
+
+duration from the Course class, while specific course categories may have additional
+
+features like coding exercises for programming courses or language exercises for
+
+language courses.
+
+source code :
+
+#include <iostream>
+
+#include <string>
+
+#include <vector>
+
+using namespace std;
+
+class Course {
+
+protected:
+
+string title;
+
+string instructor;
+
+int duration;
+
+public:
+
+Course(string title, string instructor, int duration)
+
+: title(title), instructor(instructor), duration(duration) {}
+
+virtual void display() {
+
+cout << "Title: " << title << endl;
+
+cout << "Instructor: " << instructor << endl;
+
+cout << "Duration: " << duration << " hours" << endl;
+
+}
+
+};
+
+class ProgrammingCourse : public Course {
+
+private:
+
+string programmingLanguage;
+
+vector<string> codingExercises;
+
+public:
+
+ProgrammingCourse(string title, string instructor, int duration, string programmingLanguage)
+: Course(title, instructor, duration), programmingLanguage(programmingLanguage) {}
+
+void addCodingExercises(const vector<string>& exercises) {
+
+codingExercises = exercises;
+
+}
+
+void display() override {
+
+Course::display();
+
+cout << "Programming Language: " << programmingLanguage << endl;
+
+cout << "Coding Exercises: ";
+
+for (const auto& exercise : codingExercises) {
+
+cout << exercise << ", ";
+
+}
+
+cout << endl;
+
+}
+
+};
+
+class LanguageCourse : public Course {
+
+private:
+
+string language;
+
+vector<string> languageExercises;
+
+public:
+
+LanguageCourse(string title, string instructor, int duration, string language)
+
+: Course(title, instructor, duration), language(language) {}
+
+void addLanguageExercises(const vector<string>& exercises) {
+
+languageExercises = exercises;
+
+}
+
+void display() override {
+
+Course::display();
+
+cout << "Language: " << language << endl;
+
+cout << "Language Exercises: ";
+
+for (const auto& exercise : languageExercises) {
+
+cout << exercise << ", ";
+
+}
+
+cout << endl;
+
+}
+
+};
+
+class MusicCourse : public Course {
+private :
+string instrument;
+
+vector<string> musicNotes;
+
+public:
+
+MusicCourse(string title, string instructor, int duration, string instrument)
+
+: Course(title, instructor, duration), instrument(instrument) {}
+
+void addMusicNotes(const vector<string>& notes) {
+
+musicNotes = notes;
+
+}
+
+void display() override {
+
+Course::display();
+
+cout << "Instrument: " << instrument << endl;
+
+cout << "Music Notes: ";
+
+for (const auto& note : musicNotes) {
+
+cout << note << ", ";
+
+}
+
+cout << endl;
+
+}
+
+};
+
+int main() {
+
+string title, instructor, language, programmingLanguage, instrument;
+
+int duration, numExercises;
+
+vector<string> exercises;
+
+// Get course details from the user
+
+cout << "Welcome to the course creation portal!" << endl;
+
+cout << "Please provide the following details to create a new course." << endl;
+
+cout << "Enter course title: ";
+
+getline(cin, title);
+
+cout << "Enter instructor name: ";
+
+getline(cin, instructor);
+
+cout << "Enter course duration (hours): ";
+
+cin >> duration;
+
+cout << "What type of course is this?" << endl;
+
+cout << "1. Programming Course" << endl;
+
+cout << "2. Language Course" << endl;
+cout << "3. Music Course" << endl;
+
+int choice;
+
+cin >> choice;
+
+cin.ignore();
+
+switch (choice) {
+
+case 1:
+
+cout << "Enter programming language: ";
+
+getline(cin, programmingLanguage);
+
+cout << "Enter number of coding exercises: ";
+
+cin >> numExercises;
+
+cin.ignore(); // Consume newline character
+
+cout << "Enter coding exercises:" << endl;
+
+for (int i = 0; i < numExercises; ++i) {
+
+string exercise;
+
+cout << "Exercise " << i + 1 << ": ";
+
+getline(cin, exercise);
+
+exercises.push_back(exercise);
+
+}
+
+ProgrammingCourse programmingCourse(title, instructor, duration,
+
+programmingLanguage);
+
+programmingCourse.addCodingExercises(exercises);
+
+programmingCourse.display();
+
+break;
+
+case 2:
+
+cout << "Enter language: ";
+
+getline(cin, language);
+
+cout << "Enter number of language exercises: ";
+
+cin >> numExercises;
+
+cin.ignore();
+
+cout << "Enter language exercises:" << endl;
+
+for (int i = 0; i < numExercises; ++i) {
+
+string exercise;
+
+cout << "Exercise " << i + 1 << ": ";
+
+getline(cin, exercise);
+
+exercises.push_back(exercise);
+
+}
+
+LanguageCourse languageCourse(title, instructor, duration, language);
+
+languageCourse.addLanguageExercises(exercises);
+languageCourse.display();
+
+break;
+
+case 3:
+
+cout << "Enter instrument: ";
+
+getline(cin, instrument);
+
+cout << "Enter number of music notes: ";
+
+cin >> numExercises;
+
+cin.ignore();
+
+cout << "Enter music notes:" << endl;
+
+for (int i = 0; i < numExercises; ++i) {
+
+string note;
+
+cout << "Note " << i + 1 << ": ";
+
+getline(cin, note);
+
+exercises.push_back(note);
+
+}
+
+MusicCourse musicCourse(title, instructor, duration, instrument);
+
+musicCourse.addMusicNotes(exercises);
+
+musicCourse.display();
+
+break;
+
+default:
+
+cout << "Invalid choice. Exiting program." << endl;
+
+return 1;
+
+}
+
+return 0;
+
+}
